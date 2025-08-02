@@ -15,14 +15,15 @@ services:
     build: ./upload-service
     ports:
       - "8002:8002"
-  rag-service:
-    build: ./rag-service
-    ports:
-      - "8004:8004"
   embedding-service:
     build: ./embedding-service
     ports:
       - "8003:8003"
+
+  # rag-service:
+  #   build: ./rag-service
+  #   ports:
+  #     - "8004:8004"
 
 volumes:
   qdrant_data:
