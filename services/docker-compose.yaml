@@ -7,23 +7,44 @@ services:
     volumes:
       - qdrant_data:/qdrant/storage
 
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
   user-service:
     build: ./user-service
     ports:
       - "8001:8001"
+    depends_on:
+      - qdrant
+
   upload-service:
     build: ./upload-service
     ports:
       - "8002:8002"
+    depends_on:
+      - embedding-service
+      - qdrant
+
+  rag-service:
+    build: ./rag-service
+    ports:
+      - "8004:8004"
+    depends_on:
+      - embedding-service
+      - qdrant
+      - ollama
+
   embedding-service:
     build: ./embedding-service
     ports:
       - "8003:8003"
-
-  # rag-service:
-  #   build: ./rag-service
-  #   ports:
-  #     - "8004:8004"
+    depends_on:
+      - qdrant
 
 volumes:
   qdrant_data:
+  ollama_data:

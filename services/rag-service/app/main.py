@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.upload import router as upload_router
+from app.api.rag import router as rag_router
 
-app = FastAPI(title="Upload Service", version="1.0")
+app = FastAPI(title="RAG Service", version="1.0.0")
 
 # Add CORS middleware
 app.add_middleware(
@@ -13,4 +13,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(upload_router, prefix="/upload", tags=["Upload"])
+app.include_router(rag_router, prefix="/api", tags=["RAG"]) 
